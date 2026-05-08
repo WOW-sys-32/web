@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tasty Creamery | Hershey's Ice Cream Shop · Jacksonville, FL</title>
-<meta name="description" content="Veteran & women-owned Hershey's ice cream shop in Argyle Forest, Jacksonville FL. 56 flavors, stuffed shakes, fresh cookies, boozy shakes & more. Open late!">
+<title>Tasty Creamery | Hershey's Ice Cream · Jacksonville, FL</title>
+<meta name="description" content="Veteran & women-owned Hershey's ice cream shop in Argyle Forest, Jacksonville FL. 50+ Hershey's flavors, stuffed shakes, fresh cookies, boozy shakes & more. Open late!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<script src="script.js"></script>   
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -27,8 +26,20 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .nav-links{display:flex;list-style:none}
 .nav-links a{padding:0.4rem 0.9rem;text-decoration:none;color:var(--muted);font-size:0.88rem;font-weight:500;border-radius:50px;transition:background .2s,color .2s}
 .nav-links a:hover,.nav-links a.active{background:var(--cream);color:var(--brown)}
-.nav-tel{font-size:0.85rem;font-weight:600;color:var(--brown);text-decoration:none;border:1.5px solid var(--border);border-radius:50px;padding:0.4rem 1rem;transition:border-color .2s,background .2s}
+.nav-tel{font-size:0.85rem;font-weight:600;color:var(--brown);text-decoration:none;border:1.5px solid var(--border);border-radius:50px;padding:0.4rem 1rem;transition:border-color .2s,background .2s;white-space:nowrap}
 .nav-tel:hover{border-color:var(--brown);background:var(--cream)}
+/* mobile hamburger */
+.nav-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.4rem;cursor:pointer;margin-left:.5rem}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--brown);border-radius:2px;transition:transform .25s,opacity .25s}
+.nav-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-ham.open span:nth-child(2){opacity:0}
+.nav-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--border);z-index:190;padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:.2rem;box-shadow:0 8px 24px rgba(43,26,10,.1)}
+.mob-menu.open{display:flex}
+.mob-menu a{padding:.65rem 1rem;border-radius:10px;text-decoration:none;color:var(--brown);font-weight:500;font-size:.9rem;transition:background .2s}
+.mob-menu a:hover{background:var(--cream)}
+.mob-menu .mob-cta{margin-top:.5rem;background:var(--brown);color:#fff;text-align:center;border-radius:50px;padding:.75rem;font-size:.9rem;font-weight:600}
+.mob-menu .mob-cta:hover{background:var(--pink)}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:5rem 1.5rem 3rem;background:var(--bg);position:relative;overflow:hidden}
@@ -85,8 +96,8 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .st{color:var(--muted);font-size:.97rem;line-height:1.75;max-width:560px}
 
 /* MENU */
-.menu-section-title{margin-top:2.5rem;margin-bottom:1.2rem;font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--brown);display:flex;align-items:center;gap:.6rem}
-.menu-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-divider{margin-top:2.5rem;margin-bottom:1.2rem;font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--brown);display:flex;align-items:center;gap:.6rem}
+.sec-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .menu-cats{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0}
 .mcat-btn{padding:.45rem 1rem;border-radius:50px;border:1.5px solid var(--border);background:transparent;font-size:.85rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s}
 .mcat-btn:hover,.mcat-btn.on{background:var(--brown);color:#fff;border-color:var(--brown)}
@@ -101,16 +112,18 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .mcard-badge{display:inline-block;background:var(--cream);border:1px solid var(--border);border-radius:50px;font-size:.7rem;font-weight:600;color:var(--brown);padding:.15rem .6rem;margin-left:.4rem;vertical-align:middle}
 [data-cat].hidden{display:none}
 
-/* FLAVORS GRID */
+/* FLAVORS */
 .flavors-intro{background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;font-size:.92rem;color:var(--muted);line-height:1.7}
 .flavors-intro strong{color:var(--dark)}
-.flavor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem}
-.flavor-pill{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:.55rem .9rem;font-size:.83rem;color:var(--dark);display:flex;align-items:center;gap:.5rem;transition:background .15s,border-color .15s}
+.flavor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:.55rem}
+.flavor-pill{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:.52rem .85rem;font-size:.82rem;color:var(--dark);display:flex;align-items:center;gap:.5rem;transition:background .15s,border-color .15s}
 .flavor-pill:hover{background:var(--cream);border-color:var(--gold)}
 .flavor-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.flavor-tag{font-size:.68rem;background:var(--pink-lt);color:var(--pink);border-radius:4px;padding:.1rem .35rem;font-weight:600;margin-left:auto;flex-shrink:0}
-.dietary-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
-.diet-chip{background:var(--green);color:#fff;border-radius:50px;padding:.3rem .8rem;font-size:.75rem;font-weight:600}
+.flavor-dot.italian{background:var(--green)}
+.flavor-tag{font-size:.65rem;background:var(--pink-lt);color:var(--pink);border-radius:4px;padding:.1rem .32rem;font-weight:600;margin-left:auto;flex-shrink:0}
+.flavor-tag.green{background:#D4EDE1;color:var(--green)}
+.dietary-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.diet-chip{background:var(--green);color:#fff;border-radius:50px;padding:.28rem .8rem;font-size:.73rem;font-weight:600}
 
 /* REVIEWS */
 .reviews-top{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;margin:2rem 0 2.5rem}
@@ -138,19 +151,28 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .gg{font-size:1.05rem;font-weight:900;background:linear-gradient(135deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* GALLERY */
-.gal-note{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:1rem 1.3rem;font-size:.85rem;color:var(--muted);margin-bottom:2rem;display:flex;align-items:flex-start;gap:.6rem}
-.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
-.gal-item{border-radius:16px;overflow:hidden;background:var(--cream);border:1px solid var(--border);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.gal-item{border-radius:16px;overflow:hidden;background:var(--cream);border:1px solid var(--border);aspect-ratio:1;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
 .gal-item:hover{transform:scale(1.02);box-shadow:0 8px 28px rgba(43,26,10,.12)}
-.gal-item img{width:100%;height:100%;object-fit:cover;display:block}
-.gal-ph{font-size:3rem;opacity:.4;margin-bottom:.4rem}
-.gal-ph-lbl{font-size:.75rem;color:var(--muted);text-align:center;padding:0 .8rem}
-.gal-overlay{position:absolute;inset:0;background:rgba(43,26,10,0);transition:background .2s;display:flex;align-items:flex-end;padding:.8rem}
-.gal-item:hover .gal-overlay{background:rgba(43,26,10,.35)}
-.gal-cap{color:#fff;font-size:.78rem;font-weight:600;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
-.gal-item:hover .gal-cap{opacity:1;transform:translateY(0)}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.gal-item:hover img{transform:scale(1.06)}
+.gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,26,10,.5) 0%,transparent 55%);opacity:0;transition:opacity .25s;display:flex;align-items:flex-end;padding:.75rem}
+.gal-item:hover .gal-overlay{opacity:1}
+.gal-cap{color:#fff;font-size:.75rem;font-weight:600;transform:translateY(4px);transition:transform .25s}
+.gal-item:hover .gal-cap{transform:translateY(0)}
 .fb-box{background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;margin-top:2rem}
 .fb-box p{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999;align-items:center;justify-content:center;flex-direction:column}
+#lightbox.open{display:flex}
+.lb-x{position:absolute;top:1rem;right:1.25rem;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.3rem;width:40px;height:40px;border-radius:50%;cursor:pointer;transition:background .2s}
+.lb-x:hover{background:rgba(255,255,255,.25)}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.6rem;width:48px;height:48px;border-radius:50%;cursor:pointer;transition:background .2s}
+.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.25)}
+.lb-prev{left:1.2rem}.lb-next{right:1.2rem}
+#lb-img{max-width:92vw;max-height:86vh;border-radius:12px;object-fit:contain;box-shadow:0 12px 60px rgba(0,0,0,.5)}
+#lb-counter{color:rgba(255,255,255,.5);font-size:.78rem;margin-top:.65rem}
 
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
@@ -168,7 +190,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .map-embed iframe{width:100%;height:100%;border:none;display:block}
 .fun-facts{margin-top:1.5rem;display:flex;flex-direction:column;gap:.7rem}
 .ff-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:var(--muted);line-height:1.55}
-.ff-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+.ff-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.45rem}
 
 /* VISIT */
 .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
@@ -197,8 +219,8 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 footer a:hover{color:var(--gold)}
 
 /* CHATBOT */
-.chat-fab{position:fixed;bottom:1.8rem;right:1.8rem;z-index:300;width:58px;height:58px;background:var(--brown);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px rgba(43,26,10,.3);border:none;transition:transform .2s,box-shadow .2s}
-.chat-fab:hover{transform:scale(1.08)}
+.chat-fab{position:fixed;bottom:1.8rem;right:1.8rem;z-index:300;width:58px;height:58px;background:var(--brown);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px rgba(43,26,10,.3);border:none;transition:transform .2s,background .2s}
+.chat-fab:hover{transform:scale(1.08);background:var(--pink)}
 .chat-window{position:fixed;bottom:5.5rem;right:1.8rem;z-index:300;width:340px;max-height:520px;background:var(--paper);border:1px solid var(--border);border-radius:20px;box-shadow:0 16px 48px rgba(43,26,10,.18);display:none;flex-direction:column;overflow:hidden}
 .chat-window.open{display:flex}
 .chat-head{background:var(--brown);color:#fff;padding:1rem 1.2rem;display:flex;align-items:center;gap:.75rem}
@@ -224,16 +246,22 @@ footer a:hover{color:var(--gold)}
   .hero-cards{display:none}
   .about-grid,.visit-grid{grid-template-columns:1fr}
   .reviews-top{grid-template-columns:1fr}
-  .nav-links{display:none}
+  .nav-links,.nav-tel{display:none}
+  .nav-ham{display:flex}
 }
 @media(max-width:600px){
   .hero{padding-top:6rem}
   .chat-window{right:.75rem;bottom:5rem;width:calc(100vw - 1.5rem)}
+  .panel{padding:2.5rem 1rem}
+  .menu-grid{grid-template-columns:1fr}
+  .rcards{grid-template-columns:1fr}
+  .flavor-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-w">
     <a href="#" class="logo" onclick="showPanel('home');return false">Tasty <em>Creamery</em></a>
@@ -246,9 +274,19 @@ footer a:hover{color:var(--gold)}
       <li><a href="#" onclick="showPanel('about');return false" id="nl-about">About</a></li>
       <li><a href="#" onclick="showPanel('visit');return false" id="nl-visit">Visit</a></li>
     </ul>
-    <a href="tel:9047765152" class="nav-tel">📞 (904) 776-5152</a>
+    <a href="tel:9047765152" class="nav-tel">(904) 776-5152</a>
+    <button class="nav-ham" id="navHam" onclick="toggleMob()"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#" onclick="showPanel('menu');closeMob();return false">Menu</a>
+  <a href="#" onclick="showPanel('flavors');closeMob();return false">Flavors</a>
+  <a href="#" onclick="showPanel('reviews');closeMob();return false">Reviews</a>
+  <a href="#" onclick="showPanel('gallery');closeMob();return false">Gallery</a>
+  <a href="#" onclick="showPanel('about');closeMob();return false">About</a>
+  <a href="#" onclick="showPanel('visit');closeMob();return false">Visit Us</a>
+  <a href="tel:9047765152" class="mob-cta">Call (904) 776-5152</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero-sec">
@@ -256,13 +294,13 @@ footer a:hover{color:var(--gold)}
     <div>
       <div class="hero-eye">Hershey's Ice Cream · Argyle Forest, Jacksonville FL</div>
       <h1>Scooped with love,<br>served <i>every night</i></h1>
-      <p class="hero-sub">A charming veteran & women-owned ice cream parlor with 56 Hershey's flavors, stuffed shakes, fresh-baked cookies, boozy shakes, and so much more — open late so no craving goes unmet.</p>
+      <p class="hero-sub">A charming veteran &amp; women-owned ice cream parlor with 50+ Hershey's flavors, stuffed shakes, fresh-baked cookies, boozy shakes, and so much more — open late so no craving goes unmet.</p>
       <div class="hero-chips">
-        <span class="chip">⭐ 4.8 · 246 Google Reviews</span>
-        <span class="chip">🍦 56 Hershey's Flavors</span>
-        <span class="chip">🌙 Open 'til 9–10 PM Daily</span>
-        <span class="chip">🇺🇸 Veteran-Owned</span>
-        <span class="chip">🏳️‍🌈 LGBTQ+ Friendly</span>
+        <span class="chip">4.8 · 246 Google Reviews</span>
+        <span class="chip">50+ Hershey's Flavors</span>
+        <span class="chip">Open Nightly Until 9–10 PM</span>
+        <span class="chip">Veteran-Owned</span>
+        <span class="chip">LGBTQ+ Friendly</span>
       </div>
       <div class="hero-btns">
         <a href="#" onclick="showPanel('menu');return false" class="btn btn-fill">See Our Menu</a>
@@ -271,7 +309,7 @@ footer a:hover{color:var(--gold)}
     </div>
     <div class="hero-cards">
       <div class="hcard hc-main"><div class="hc-emoji">🥤</div><div class="hc-tag">Stuffed Shakes</div></div>
-      <div class="hcard hc-sm1"><div class="hc-emoji">🍦</div><div class="hc-tag">56 Flavors</div></div>
+      <div class="hcard hc-sm1"><div class="hc-emoji">🍦</div><div class="hc-tag">50+ Flavors</div></div>
       <div class="hcard hc-sm2"><div class="hc-emoji">🍪</div><div class="hc-tag">Fresh Cookies</div></div>
     </div>
   </div>
@@ -281,7 +319,7 @@ footer a:hover{color:var(--gold)}
 <div class="ribbon">
   <div class="ribbon-w">
     <div class="ribbon-item"><div class="ribbon-num">4.8★</div><div class="ribbon-lbl">Google Rating</div></div>
-    <div class="ribbon-item"><div class="ribbon-num">56</div><div class="ribbon-lbl">Hershey's Flavors</div></div>
+    <div class="ribbon-item"><div class="ribbon-num">50+</div><div class="ribbon-lbl">Hershey's Flavors</div></div>
     <div class="ribbon-item"><div class="ribbon-num">20+</div><div class="ribbon-lbl">Toppings</div></div>
     <div class="ribbon-item"><div class="ribbon-num">9–10pm</div><div class="ribbon-lbl">Open Late Nightly</div></div>
   </div>
@@ -290,188 +328,278 @@ footer a:hover{color:var(--gold)}
 <!-- TABS -->
 <div class="page-tabs" id="page-tabs">
   <div class="tabs-w">
-    <button class="tab-btn on"  id="tab-menu"    onclick="showPanel('menu')">🍦 Menu</button>
-    <button class="tab-btn"     id="tab-flavors"  onclick="showPanel('flavors')">🎨 Flavors</button>
-    <button class="tab-btn"     id="tab-reviews"  onclick="showPanel('reviews')">⭐ Reviews</button>
-    <button class="tab-btn"     id="tab-gallery"  onclick="showPanel('gallery')">📸 Gallery</button>
-    <button class="tab-btn"     id="tab-about"    onclick="showPanel('about')">🏡 About</button>
-    <button class="tab-btn"     id="tab-visit"    onclick="showPanel('visit')">📍 Visit Us</button>
+    <button class="tab-btn on" id="tab-menu"    onclick="showPanel('menu')">Menu</button>
+    <button class="tab-btn"   id="tab-flavors"  onclick="showPanel('flavors')">Flavors</button>
+    <button class="tab-btn"   id="tab-reviews"  onclick="showPanel('reviews')">Reviews</button>
+    <button class="tab-btn"   id="tab-gallery"  onclick="showPanel('gallery')">Gallery</button>
+    <button class="tab-btn"   id="tab-about"    onclick="showPanel('about')">About</button>
+    <button class="tab-btn"   id="tab-visit"    onclick="showPanel('visit')">Visit Us</button>
   </div>
 </div>
 
-<!-- MENU PANEL -->
+<!-- ══════════════════ MENU PANEL ══════════════════ -->
 <div class="panel on" id="panel-menu">
   <div class="panel-w">
     <div class="eyebrow">What We Serve</div>
     <h2 class="sh">Every craving, <i>covered</i></h2>
-    <p class="st">From hand-dipped Hershey's scoops to over-the-top stuffed shakes, fresh-baked cookies, boozy shakes, and even a doggie cup — we have something delicious for everyone.</p>
+    <p class="st">From hand-dipped Hershey's scoops to over-the-top stuffed shakes, homemade cobbler, boozy shakes, and so much more.</p>
 
     <div class="menu-cats">
       <button class="mcat-btn on" onclick="filterMenu('all',this)">All</button>
-      <button class="mcat-btn" onclick="filterMenu('scoops',this)">Scoops & Cones</button>
-      <button class="mcat-btn" onclick="filterMenu('sundaes',this)">Sundaes & Splits</button>
+      <button class="mcat-btn" onclick="filterMenu('scoops',this)">Scoops &amp; Cones</button>
+      <button class="mcat-btn" onclick="filterMenu('sundaes',this)">Sundaes &amp; Splits</button>
       <button class="mcat-btn" onclick="filterMenu('shakes',this)">Shakes</button>
       <button class="mcat-btn" onclick="filterMenu('bakery',this)">Bakery</button>
-      <button class="mcat-btn" onclick="filterMenu('drinks',this)">Coffee & Drinks</button>
-      <button class="mcat-btn" onclick="filterMenu('specials',this)">Specials</button>
+      <button class="mcat-btn" onclick="filterMenu('drinks',this)">Coffee &amp; Drinks</button>
     </div>
 
     <div class="menu-grid">
+
+      <!-- SCOOPS -->
       <div class="mcard fade" data-cat="scoops">
         <div class="mcard-img" style="background:linear-gradient(150deg,#A8EDEA,#FED6E3)">🍦</div>
-        <div class="mcard-body"><div class="mcard-name">Hand-Dipped Scoops</div><div class="mcard-desc">Choose from 56 Hershey's flavors. Served in a cup, regular cone, or fresh-made waffle cone. Ask about gluten-free, vegan, dairy-free, no-sugar-added, and lactose-free options.</div><div class="mcard-price">From $4</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Scoops</div>
+          <div class="mcard-desc">Single or double scoop of any Hershey's flavor. Served in a cup, regular cone, or our fresh-made waffle cone or bowl.</div>
+          <div class="mcard-price">Single or Double</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="scoops">
         <div class="mcard-img" style="background:linear-gradient(150deg,#FDDB92,#FFF1CC)">🧇</div>
-        <div class="mcard-body"><div class="mcard-name">Fresh Waffle Cones</div><div class="mcard-desc">Made in-house, warm and crispy. The perfect vessel for your favorite Hershey's scoop.</div><div class="mcard-price">Upgrade available</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Fresh Waffle Cones &amp; Bowls</div>
+          <div class="mcard-desc">Made in-house, warm and crispy. The perfect vessel for any Hershey's scoop.</div>
+          <div class="mcard-price">Upgrade available</div>
+        </div>
+      </div>
+      <div class="mcard fade" data-cat="scoops">
+        <div class="mcard-img" style="background:linear-gradient(150deg,#D4F0E8,#B8DDD0)">🧒</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Kids Scoop</div>
+          <div class="mcard-desc">A kid-size scoop of their favorite flavor, served with one free topping of their choice.</div>
+          <div class="mcard-price">Includes 1 free topping</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="scoops">
         <div class="mcard-img" style="background:linear-gradient(150deg,#D4FC79,#FDDB92)">🍪</div>
-        <div class="mcard-body"><div class="mcard-name">Ice Cream Sandwich</div><div class="mcard-desc">Choose your freshly baked cookie and your ice cream flavor — we'll put it all together for you. 56 flavors to pair!</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Ice Cream Cookie Sandwich</div>
+          <div class="mcard-desc">Choose your cookie and choose your ice cream flavor — we'll build it fresh right in front of you.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="scoops">
         <div class="mcard-img" style="background:linear-gradient(150deg,#A8EDEA,#D4F0EC)">🥡</div>
-        <div class="mcard-body"><div class="mcard-name">Pints To Go</div><div class="mcard-desc">Take your favorite flavor home! Full 16 oz pints of any of our 56 Hershey's flavors. Several gluten-free, vegan, and dairy-free options available.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Take Home Pints</div>
+          <div class="mcard-desc">"If you can dream it, we can make it." Any flavor packed fresh to enjoy at home.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
+
+      <!-- SUNDAES & SPLITS -->
       <div class="mcard fade" data-cat="sundaes">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#FBC2EB,#A6C1EE)">🍫</div>
-        <div class="mcard-body"><div class="mcard-name">Hot Fudge Sundaes</div><div class="mcard-desc">Rich warm fudge drizzled over your scoops, whipped cream, nuts, and a cherry on top. Classic and fully customizable.</div><div class="mcard-price">From $6</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#FBC2EB,#A6C1EE)">🍨</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Sundaes</div>
+          <div class="mcard-desc">Single or double scoop with your choice of hot fudge, hot caramel, pineapple, or strawberry — plus whipped cream, nuts, and a cherry.</div>
+          <div class="mcard-price">Single or Double</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="sundaes">
         <div class="mcard-img" style="background:linear-gradient(150deg,#FDDB92,#D1FDFF)">🍌</div>
-        <div class="mcard-body"><div class="mcard-name">Classic Banana Split</div><div class="mcard-desc">3 scoops — strawberry with strawberry topping, chocolate with hot fudge, vanilla with pineapple — bananas, whipped cream, nuts & cherries.</div><div class="mcard-price">From $7</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Banana Splitz</div>
+          <div class="mcard-desc">Single, double, or triple scoop with bananas and your choice of hot fudge, hot caramel, pineapple, or strawberry — topped with whipped cream, nuts, and a cherry.</div>
+          <div class="mcard-price">Single · Double · Triple</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="sundaes">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#FFECD2,#FCB69F)">🍮</div>
-        <div class="mcard-body"><div class="mcard-name">Salted Caramel Banana Split</div><div class="mcard-desc">3 scoops of salted caramel truffle, each layered with bananas and caramel drizzle, topped with whipped cream.</div><div class="mcard-price">From $8</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#E8CCF0,#D0A8DC)">🏔️</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Sky High Sundaes</div>
+          <div class="mcard-desc">Three scoops layered with your choice of drizzle and dry toppings between each layer, finished with whipped cream on top.</div>
+          <div class="mcard-price">3 scoops</div>
+        </div>
       </div>
-      <div class="mcard fade" data-cat="sundaes">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#E0E0E0,#FBC2EB)">🍬</div>
-        <div class="mcard-body"><div class="mcard-name">Cookies & Cream Split</div><div class="mcard-desc">3 scoops of cookies & cream, each with crushed Oreos and chocolate drizzle, topped with whipped cream and more drizzle.</div><div class="mcard-price">From $8</div></div>
+
+      <!-- SHAKES -->
+      <div class="mcard fade" data-cat="shakes">
+        <div class="mcard-img" style="background:linear-gradient(150deg,#F9D4DA,#FFECD2)">🥛</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Milkshakes</div>
+          <div class="mcard-desc">Choose your flavor of ice cream, blended thick and creamy, topped with whipped cream and a cherry.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="shakes">
         <div class="mcard-img" style="background:linear-gradient(150deg,#FFECD2,#FCB69F)">🥤</div>
-        <div class="mcard-body"><div class="mcard-name">Stuffed Shakes</div><div class="mcard-desc">Our signature over-the-top shakes loaded with toppings, candy, and house-made treats. Choose from 48 ice cream flavors. A true showstopper.</div><div class="mcard-price">From $8</div></div>
-      </div>
-      <div class="mcard fade" data-cat="shakes">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#F9D4DA,#FFECD2)">🥛</div>
-        <div class="mcard-body"><div class="mcard-name">Classic Milkshakes</div><div class="mcard-desc">Thick, creamy, and made fresh. Choose any of our ice cream flavors and we'll blend it up. Whipped cream and a cherry on top.</div><div class="mcard-price">From $6</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Stuffed Shakes</div>
+          <div class="mcard-desc">Choose your flavor and your add-ins — loaded up with toppings, candy, and house-made treats, topped with whipped cream and a cherry.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="shakes">
         <div class="mcard-img" style="background:linear-gradient(150deg,#FBC2EB,#E0C3FC)">🍹</div>
-        <div class="mcard-body"><div class="mcard-name">Boozy Shakes <span class="mcard-badge">21+</span></div><div class="mcard-desc">For those over 21 — we got you covered. Ask our team about today's boozy shake options for a grown-up treat.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Boozy Milkshakes <span class="mcard-badge">21+</span></div>
+          <div class="mcard-desc">Choose your ice cream flavor and your alcohol — served with drizzle and whipped cream. Valid ID required.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="shakes">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#A8EDEA,#FED6E3)">🍉</div>
-        <div class="mcard-body"><div class="mcard-name">Italian Ice Shakes</div><div class="mcard-desc">Try our refreshing watermelon Italian ice blended into a shake with Sprite. A fan-favorite unique twist on the classic shake.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#C8E6DA,#A8D5C2)">🫧</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Floats</div>
+          <div class="mcard-desc">Choose your soda and your ice cream flavor — a refreshing classic done the right way.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
+
+      <!-- BAKERY -->
       <div class="mcard fade" data-cat="bakery">
         <div class="mcard-img" style="background:linear-gradient(150deg,#D4FC79,#96E6A1)">🍪</div>
-        <div class="mcard-body"><div class="mcard-name">Fresh-Baked Cookies</div><div class="mcard-desc">Baked fresh daily in multiple flavors. Warm, gooey, and "insaaaane!!" according to our customers. Order 1, 2, or 3 with different flavors each.</div><div class="mcard-price">From $3</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Decadent Cookies</div>
+          <div class="mcard-desc">Enjoy on their own or A'La Mode — choose your cookie, your ice cream, and your drizzle.</div>
+          <div class="mcard-price">Plain or A'La Mode</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="bakery">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#FDDB92,#FFECD2)">🥐</div>
-        <div class="mcard-body"><div class="mcard-name">Cinnamon Rolls</div><div class="mcard-desc">Freshly baked cinnamon roll topped with sweet white icing — or top it with ice cream and drizzle for the ultimate warm-cold combo.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#D0C0B0,#B8A090)">🍫</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Brownies</div>
+          <div class="mcard-desc">Rich and decadent. Enjoy plain or A'La Mode — choose your brownie, ice cream, and drizzle.</div>
+          <div class="mcard-price">Plain or A'La Mode</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="bakery">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#3D1F0D22,#FFECD2)">🍫</div>
-        <div class="mcard-body"><div class="mcard-name">Brownies</div><div class="mcard-desc">Rich, decadent brownies served warm. Top it with your favorite ice cream and drizzle for a next-level dessert experience.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#FDDB92,#FFF1CC)">🫐</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Homemade Cobbler A'La Mode</div>
+          <div class="mcard-desc">Choose your cobbler, your ice cream, and your drizzle. A warm homestyle dessert you won't find anywhere else.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
+
+      <!-- COFFEE & DRINKS -->
       <div class="mcard fade" data-cat="drinks">
         <div class="mcard-img" style="background:linear-gradient(150deg,#E0C3FC,#8EC5FC)">☕</div>
-        <div class="mcard-body"><div class="mcard-name">Blend Java</div><div class="mcard-desc">Coffee lover? Our Blend Java is an ice cream shake with a double shot of espresso. Choose from 48 flavors for a unique coffee-cream treat.</div><div class="mcard-price">From $6</div></div>
+        <div class="mcard-body">
+          <div class="mcard-name">Blend Java</div>
+          <div class="mcard-desc">A milkshake with espresso — choose your ice cream, comes with espresso, whipped cream, and drizzle.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
       <div class="mcard fade" data-cat="drinks">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#A8EDEA,#E0C3FC)">🧋</div>
-        <div class="mcard-body"><div class="mcard-name">Iced Coffee & Frappes</div><div class="mcard-desc">Our coffee bar offers frappes, iced coffee, and specialty coffee drinks to pair perfectly with any sweet treat.</div><div class="mcard-price">Ask for pricing</div></div>
+        <div class="mcard-img" style="background:linear-gradient(150deg,#D8CCF0,#B8A8DC)">🫘</div>
+        <div class="mcard-body">
+          <div class="mcard-name">Affogato</div>
+          <div class="mcard-desc">Espresso poured over a scoop of ice cream. Simple, bold, and absolutely delicious.</div>
+          <div class="mcard-price">Ask for pricing</div>
+        </div>
       </div>
-      <div class="mcard fade" data-cat="specials">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#D4FC79,#A8EDEA)">🐾</div>
-        <div class="mcard-body"><div class="mcard-name">Doggie Cup <span class="mcard-badge">Woof!</span></div><div class="mcard-desc">A special treat for man's best friend — 1 cup of ice cream just for your pup, served with a doggie treat. Vegan options available.</div><div class="mcard-price">Ask for pricing</div></div>
-      </div>
-      <div class="mcard fade" data-cat="specials">
-        <div class="mcard-img" style="background:linear-gradient(150deg,#FBC2EB,#FDDB92)">📸</span></div>
-        <div class="mcard-body"><div class="mcard-name">Photo Op Wall</div><div class="mcard-desc">Our shop features a fun photo op wall! Grab your treat, snap a pic, and tag us. Perfect for families, dates, and any occasion.</div><div class="mcard-price">Free with any order!</div></div>
-      </div>
+
     </div>
     <div style="text-align:center;margin-top:2.5rem">
-      <a href="https://tastycreamery.net" target="_blank" class="btn btn-fill">View Full Menu at tastycreamery.net ↗</a>
+      <a href="https://tastycreamery.net" target="_blank" class="btn btn-fill">View Full Menu at tastycreamery.net</a>
     </div>
   </div>
 </div>
 
-<!-- FLAVORS PANEL -->
+<!-- ══════════════════ FLAVORS PANEL ══════════════════ -->
 <div class="panel" id="panel-flavors">
   <div class="panel-w">
     <div class="eyebrow">Hershey's Ice Cream</div>
-    <h2 class="sh">56 flavors to <i>explore</i></h2>
-    <p class="st">We proudly serve Hershey's hand-dipped ice cream — rich, creamy, and made with real ingredients. With 56 rotating flavors, there's always something new to discover.</p>
+    <h2 class="sh">Our full <i>flavor list</i></h2>
+    <p class="st">We proudly serve Hershey's hand-dipped ice cream. Below is our complete current lineup — some flavors rotate, so it's always worth asking what's in the case today.</p>
 
     <div class="flavors-intro" style="margin-top:1.5rem">
-      <strong>Dietary options available:</strong> Many flavors are gluten-free, vegan/dairy-free, lactose-free, and no-sugar-added. Just ask our team and we'll help you find your perfect match!
+      <strong>Dietary options available</strong> — check with us for gluten-free, dairy-free, and vegan options. Some flavors not available at all times.
       <div class="dietary-row">
-        <span class="diet-chip">🌿 Vegan / Dairy-Free</span>
-        <span class="diet-chip">🌾 Gluten-Free</span>
-        <span class="diet-chip">🥛 Lactose-Free</span>
-        <span class="diet-chip">🍬 No Sugar Added</span>
+        <span class="diet-chip">Vegan / Dairy-Free</span>
+        <span class="diet-chip">Gluten-Free options</span>
+        <span class="diet-chip">Lactose-Free</span>
+        <span class="diet-chip">No Sugar Added</span>
       </div>
     </div>
 
-    <div class="menu-section-title">Customer Favorites</div>
+    <div class="sec-divider" style="margin-top:2rem">Ice Cream Flavors</div>
     <div class="flavor-grid">
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Banana Pudding<span class="flavor-tag">⭐ Fan Fave</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Salted Caramel Truffle<span class="flavor-tag">⭐ Popular</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Cookies & Cream<span class="flavor-tag">⭐ Classic</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Dark Chocolate Raspberry<span class="flavor-tag">⭐ Popular</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Coffeehouse Cookies & Cream<span class="flavor-tag">🆕 New</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Peanut Butter Cup</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Strawberry Cheesecake</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Birthday cake</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Pistachio<span class="flavor-tag">⭐ Popular</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Coconut</div>
-    </div>
-
-    <div class="menu-section-title">Classic & Timeless</div>
-    <div class="flavor-grid">
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Vanilla</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Strawberry</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Mint Chocolate Chip</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Banana Pudding<span class="flavor-tag">Fan Fave</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Better Brownie Batter</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Birthday Cake</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Black Cherry</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Blueberry Cheesecake</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Brown Butter Bourbon Truffle</div>
       <div class="flavor-pill fade"><div class="flavor-dot"></div>Butter Pecan</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Butter Pecan<span class="flavor-tag">No Sugar Added</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Cappuccino Crunch</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Caramel Cheesecake Cookie Monster</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate Chip</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate Chip Cookie Dough</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate Extreme</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate Moose Tracks</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Coconut</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Coconut Chocolate Almond</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Coffeehouse Cookies &amp; Cream</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Cookies &amp; Cream</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Cotton Candy</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Dark Chocolate Raspberry Truffle<span class="flavor-tag">Popular</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Deep Dish Apple Pie</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Fat Free Vanilla Yogurt<span class="flavor-tag">Fat Free</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>French Vanilla</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Graham Central Station</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Green Mint Chip</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Key Lime Pie</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Lactaid Free Vanilla<span class="flavor-tag">Lactose-Free</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Lemon Bar</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Lil' Blue Panda</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Maple Walnut</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Midnight Caramel River</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Mint Moose Tracks</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Moose Tracks</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Oatmeal Cookie Craving</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Orange Blossom</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Peanut Butter Caramel Cookie Dough</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Peanut Butter Cup</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Pistachio Nut</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Praline Pecans</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Pretzel Sundae</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Road Runner Raspberry</div>
       <div class="flavor-pill fade"><div class="flavor-dot"></div>Rocky Road</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Neapolitan</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Rainbow Sherbet</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Chocolate Almond</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Fudge Ripple</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Cherry Vanilla</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Peach</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Rum Raisin</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Salted Caramel Brownie</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Salty Caramel Truffle<span class="flavor-tag">Popular</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Strawberry</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Strawberry Cheesecake</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Super Berry Acai<span class="flavor-tag green">Vegan</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Superman</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Vanilla</div>
+      <div class="flavor-pill fade"><div class="flavor-dot"></div>Whitehouse Cherry</div>
     </div>
 
-    <div class="menu-section-title">Unique & Specialty</div>
+    <div class="sec-divider" style="margin-top:2rem">Italian Ice</div>
     <div class="flavor-grid">
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Rum Raisin</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Whitehouse Cherry</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Apple Pie</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Key Lime Pie</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Bananas Foster</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Raspberry Sorbet<span class="flavor-tag">🌿 Vegan</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Watermelon Italian Ice<span class="flavor-tag">🌿 Vegan</span></div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Nerds</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Blondie</div>
-      <div class="flavor-pill fade"><div class="flavor-dot"></div>Seasonal Special<span class="flavor-tag">Ask Us!</span></div>
+      <div class="flavor-pill fade"><div class="flavor-dot italian"></div>Cotton Candy</div>
+      <div class="flavor-pill fade"><div class="flavor-dot italian"></div>Mango</div>
+      <div class="flavor-pill fade"><div class="flavor-dot italian"></div>Sour Apple</div>
+      <div class="flavor-pill fade"><div class="flavor-dot italian"></div>Watermelon</div>
     </div>
 
     <div style="background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-top:2rem;text-align:center">
-      <p style="color:var(--muted);font-size:.92rem;line-height:1.7">This is just a sample of our rotating selection. With <strong style="color:var(--dark)">56 total Hershey's flavors</strong> and seasonal additions, the full board is always at the shop. Come in to see today's lineup!</p>
+      <p style="color:var(--muted);font-size:.92rem;line-height:1.7">Some flavors are not available at all times. Stop in or call ahead to check what's in the case today — we're always happy to help.</p>
       <div style="margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="#" onclick="showPanel('visit');return false" class="btn btn-fill">📍 Visit the Shop</a>
-        <a href="tel:9047765152" class="btn btn-stroke">📞 Call to Ask About Flavors</a>
+        <a href="#" onclick="showPanel('visit');return false" class="btn btn-fill">Find the Shop</a>
+        <a href="tel:9047765152" class="btn btn-stroke">Call (904) 776-5152</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- REVIEWS PANEL -->
+<!-- ══════════════════ REVIEWS PANEL ══════════════════ -->
 <div class="panel" id="panel-reviews">
   <div class="panel-w">
     <div class="eyebrow">What People Are Saying</div>
@@ -493,71 +621,71 @@ footer a:hover{color:var(--gold)}
     </div>
     <div class="rcards">
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#C8564A">NC</div><div><div class="rname">Neri Colón</div><div class="rguide">Local Guide · 130 reviews · 59 photos</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"What a great experience! It was cold outside but we were given such a warm welcome inside. So many flavors to choose from too. Excellent customer service!"</p><div class="rdate">2 months ago</div></div>
-      <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#4A7C59">AM</div><div><div class="rname">Alexis Morgan</div><div class="rguide">Local Guide · 17 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Our family discovered this place today & we can't wait to return! So many yummy options. We each got a cup of ice cream & a cookie — absolutely delicious. Very friendly & welcoming staff, excellent service, clean establishment."</p><div class="rdate">5 months ago</div></div>
+      <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#4A7C59">AM</div><div><div class="rname">Alexis Morgan</div><div class="rguide">Local Guide · 17 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Our family discovered this place today &amp; we can't wait to return! So many yummy options. We each got a cup of ice cream &amp; a cookie — absolutely delicious. Very friendly &amp; welcoming staff, excellent service, clean establishment."</p><div class="rdate">5 months ago</div></div>
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#C4893A">MR</div><div><div class="rname">Mike Ring</div><div class="rguide">3 reviews · 2 photos</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Phenomenal service by everyone. Store smells amazing and those cookies are insaaaane!! I come by here like 5 times a week. What an amazing place."</p><div class="rdate">9 months ago</div></div>
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#6B52A0">JW</div><div><div class="rname">Jennifer W.</div><div class="rguide">Local Guide · 44 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Ordered 2 hot fudge sundaes — paid $15 for 2. Absolutely worth every penny. Portions are generous, toppings are fresh. Will definitely be back!"</p><div class="rdate">4 months ago</div></div>
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#C0392B">TC</div><div><div class="rname">Tanya C.</div><div class="rguide">8 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"The banana pudding ice cream is UNREAL. My kids go crazy for the stuffed shakes. Such a welcoming atmosphere — you can tell this place is run with a lot of heart. Proud to support a veteran-owned business!"</p><div class="rdate">6 months ago</div></div>
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#3D9970">KL</div><div><div class="rname">Kevin L.</div><div class="rguide">Local Guide · 22 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Late night ice cream done right. Open until 10 on weekends — perfect. The shakes are insane, so big you can barely finish one. 100% recommend to anyone in the Argyle Forest area."</p><div class="rdate">3 months ago</div></div>
       <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#8E44AD">DB</div><div><div class="rname">David B.</div><div class="rguide">Local Guide · 67 reviews</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"Genuinely one of the best ice cream shops in Jacksonville. The banana split was massive and the banana pudding flavor is unlike anything I've had. Great prices. Go support this local gem!"</p><div class="rdate">1 month ago</div></div>
-      <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#C8564A">SR</div><div><div class="rname">Sandra R.</div><div class="rguide">5 reviews · 1 photo</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"AMAZING EXPERIENCE!! Great customer service — as we came in we were greeted with a smile and explained all the options. Huge selection of ice creams and toppings, coffee, shakes, splits & a full fresh bakery. Best cinnamon roll we've ever had!"</p><div class="rdate">7 months ago</div></div>
+      <div class="rcard fade"><div class="rcard-top"><div class="ravatar" style="background:#C8564A">SR</div><div><div class="rname">Sandra R.</div><div class="rguide">5 reviews · 1 photo</div></div></div><div class="rstars">★★★★★</div><p class="rtext">"AMAZING EXPERIENCE!! Great customer service — greeted with a smile and explained all the options. Huge selection of ice creams and toppings, coffee, shakes, splits &amp; a full fresh bakery. Best cinnamon roll we've ever had!"</p><div class="rdate">7 months ago</div></div>
     </div>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
       <a href="https://www.google.com/maps/place/Tasty+Creamery/@30.1932856,-81.7518522,15z/data=!4m8!3m7!1s0x88e5c7b16445864f:0x7ad2ad9fbf7cf392!8m2!3d30.1932856!4d-81.7518522!9m1!1b1!16s%2Fg%2F11rqbbm78d" target="_blank" class="gbadge"><span class="gg">G</span> Read all 246 reviews on Google</a>
-      <a href="https://www.google.com/maps/place/Tasty+Creamery/@30.1932856,-81.7518522,15z/data=!4m8!3m7!1s0x88e5c7b16445864f:0x7ad2ad9fbf7cf392!8m2!3d30.1932856!4d-81.7518522!9m1!1b1!16s%2Fg%2F11rqbbm78d" target="_blank" class="btn btn-stroke" style="font-size:.85rem;padding:.5rem 1.2rem">✍️ Leave a Review</a>
+      <a href="https://www.google.com/maps/place/Tasty+Creamery/@30.1932856,-81.7518522,15z/data=!4m8!3m7!1s0x88e5c7b16445864f:0x7ad2ad9fbf7cf392!8m2!3d30.1932856!4d-81.7518522!9m1!1b1!16s%2Fg%2F11rqbbm78d" target="_blank" class="btn btn-stroke" style="font-size:.85rem;padding:.5rem 1.2rem">Leave a Review</a>
     </div>
   </div>
 </div>
 
-<!-- GALLERY PANEL -->
+<!-- ══════════════════ GALLERY PANEL ══════════════════ -->
 <div class="panel" id="panel-gallery">
   <div class="panel-w">
     <div class="eyebrow">Photos</div>
     <h2 class="sh">A taste of what <i>awaits</i> you</h2>
-    <p class="st" style="margin-bottom:1.5rem">Check out our creations — from stuffed shakes to fresh-baked cookies and banana splits, every visit is a treat.</p>
-    <!-- LIGHTBOX -->
-    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;flex-direction:column">
-      <button onclick="closeLB()" style="position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1">✕</button>
-      <button onclick="lbNav(-1)" style="position:absolute;left:1.2rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:2rem;cursor:pointer;padding:.5rem 1rem;border-radius:50px">‹</button>
-      <img id="lb-img" src="" style="max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.5)">
-      <div id="lb-counter" style="color:rgba(255,255,255,.6);font-size:.85rem;margin-top:.8rem"></div>
-      <button onclick="lbNav(1)" style="position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:2rem;cursor:pointer;padding:.5rem 1rem;border-radius:50px">›</button>
+    <p class="st" style="margin-bottom:1.5rem">From stuffed shakes to banana splits and fresh cookies — every visit is worth photographing.</p>
+
+    <div id="lightbox">
+      <button class="lb-x" onclick="closeLB()">✕</button>
+      <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+      <img id="lb-img" src="" alt="Gallery photo">
+      <div id="lb-counter"></div>
+      <button class="lb-next" onclick="lbNav(1)">›</button>
     </div>
 
     <div class="gal-grid" id="galGrid">
-      <div class="gal-item fade" onclick="openLB(0)"><img src="imgs/1.jpg" alt="Tasty Creamery photo 1" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(1)"><img src="imgs/2.jpg" alt="Tasty Creamery photo 2" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(2)"><img src="imgs/3.jpg" alt="Tasty Creamery photo 3" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(3)"><img src="imgs/4.jpg" alt="Tasty Creamery photo 4" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(4)"><img src="imgs/5.jpg" alt="Tasty Creamery photo 5" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(5)"><img src="imgs/6.jpg" alt="Tasty Creamery photo 6" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(6)"><img src="imgs/7.jpg" alt="Tasty Creamery photo 7" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(7)"><img src="imgs/8.jpg" alt="Tasty Creamery photo 8" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(8)"><img src="imgs/9.jpg" alt="Tasty Creamery photo 9" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(9)"><img src="imgs/10.jpg" alt="Tasty Creamery photo 10" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(10)"><img src="imgs/11.jpg" alt="Tasty Creamery photo 11" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(11)"><img src="imgs/12.jpg" alt="Tasty Creamery photo 12" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(12)"><img src="imgs/13.jpg" alt="Tasty Creamery photo 13" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(13)"><img src="imgs/14.jpg" alt="Tasty Creamery photo 14" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(14)"><img src="imgs/15.jpg" alt="Tasty Creamery photo 15" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(15)"><img src="imgs/16.jpg" alt="Tasty Creamery photo 16" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(16)"><img src="imgs/17.jpg" alt="Tasty Creamery photo 17" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(17)"><img src="imgs/18.jpg" alt="Tasty Creamery photo 18" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(18)"><img src="imgs/19.jpg" alt="Tasty Creamery photo 19" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(19)"><img src="imgs/20.jpg" alt="Tasty Creamery photo 20" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(20)"><img src="imgs/21.jpg" alt="Tasty Creamery photo 21" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(21)"><img src="imgs/22.jpg" alt="Tasty Creamery photo 22" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(22)"><img src="imgs/23.jpg" alt="Tasty Creamery photo 23" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(23)"><img src="imgs/24.jpg" alt="Tasty Creamery photo 24" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
-      <div class="gal-item fade" onclick="openLB(24)"><img src="imgs/25.png" alt="Tasty Creamery photo 25" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(0)"><img src="imgs/1.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(1)"><img src="imgs/2.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(2)"><img src="imgs/3.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(3)"><img src="imgs/4.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(4)"><img src="imgs/5.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(5)"><img src="imgs/6.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(6)"><img src="imgs/7.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(7)"><img src="imgs/8.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(8)"><img src="imgs/9.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(9)"><img src="imgs/10.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(10)"><img src="imgs/11.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(11)"><img src="imgs/12.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(12)"><img src="imgs/13.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(13)"><img src="imgs/14.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(14)"><img src="imgs/15.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(15)"><img src="imgs/16.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(16)"><img src="imgs/17.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(17)"><img src="imgs/18.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(18)"><img src="imgs/19.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(19)"><img src="imgs/20.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(20)"><img src="imgs/21.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(21)"><img src="imgs/22.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(22)"><img src="imgs/23.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(23)"><img src="imgs/24.jpg" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
+      <div class="gal-item fade" onclick="openLB(24)"><img src="imgs/25.png" alt="Tasty Creamery" loading="lazy"><div class="gal-overlay"><span class="gal-cap">Tasty Creamery</span></div></div>
     </div>
     <div class="fb-box">
-      <p>See even more photos on Facebook — updated regularly with new creations and customer favorites!</p>
-      <a href="https://www.facebook.com/tastycreameryjax/photos" target="_blank" class="btn btn-fill">📸 More on Facebook ↗</a>
+      <p>See even more photos on Facebook — updated regularly with new creations and customer favorites.</p>
+      <a href="https://www.facebook.com/tastycreameryjax/photos" target="_blank" class="btn btn-fill">More on Facebook</a>
     </div>
   </div>
 </div>
 
-<!-- ABOUT PANEL -->
+<!-- ══════════════════ ABOUT PANEL ══════════════════ -->
 <div class="panel" id="panel-about">
   <div class="panel-w">
     <div class="about-grid">
@@ -565,22 +693,22 @@ footer a:hover{color:var(--gold)}
         <div class="eyebrow">Our Story</div>
         <h2 class="sh">Sweet treats, <i>real heart</i></h2>
         <div class="badges">
-          <span class="bdg">🇺🇸 Veteran-Owned</span>
-          <span class="bdg">👩 Women-Owned</span>
-          <span class="bdg">🏳️‍🌈 LGBTQ+ Friendly</span>
-          <span class="bdg">♿ Wheelchair Accessible</span>
+          <span class="bdg">Veteran-Owned</span>
+          <span class="bdg">Women-Owned</span>
+          <span class="bdg">LGBTQ+ Friendly</span>
+          <span class="bdg">Wheelchair Accessible</span>
         </div>
         <p class="about-text">We're a charming, family-owned ice cream parlor in the heart of Argyle Forest — proudly veteran and women-owned. We're not just serving ice cream; we're crafting unforgettable moments in an old-time parlor atmosphere.</p>
-        <p class="about-text">We serve Hershey's premium hand-dipped ice cream with 56 rotating flavors, over 20 toppings, and endless combinations. Whether you're stopping in for a quick scoop or settling in for a stuffed shake and fresh-baked cookie, every visit feels like a celebration.</p>
-        <p class="about-text">We also carry taffy, fudge, and vintage candy — and for those 21+, our boozy shakes are a crowd favorite. The pups aren't left out either, with our special doggie cup!</p>
+        <p class="about-text">We serve Hershey's premium hand-dipped ice cream with 50+ rotating flavors, over 20 toppings, and endless combinations. Whether you're stopping in for a quick scoop or settling in for a stuffed shake and homemade cobbler, every visit feels like a celebration.</p>
+        <p class="about-text">We also carry taffy, fudge, and vintage candy — and for those 21+, our boozy milkshakes are a crowd favorite.</p>
         <div class="fun-facts">
-          <div class="ff-item"><span class="ff-icon">🍦</span><span>56 Hershey's flavors including gluten-free, vegan, dairy-free, lactose-free & no-sugar-added options</span></div>
-          <div class="ff-item"><span class="ff-icon">🧂</span><span>20+ toppings to customize your treat exactly how you like it</span></div>
-          <div class="ff-item"><span class="ff-icon">🍬</span><span>Taffy, fudge & vintage candy also available in the shop</span></div>
-          <div class="ff-item"><span class="ff-icon">📸</span><span>Photo op wall inside — perfect for family visits & date nights</span></div>
-          <div class="ff-item"><span class="ff-icon">♿</span><span>Wide aisles for easy wheelchair access throughout the shop</span></div>
+          <div class="ff-item"><span class="ff-dot"></span><span>50+ Hershey's flavors including no-sugar-added, lactose-free, and vegan options</span></div>
+          <div class="ff-item"><span class="ff-dot"></span><span>20+ toppings to customize your treat exactly how you like it</span></div>
+          <div class="ff-item"><span class="ff-dot"></span><span>Taffy, fudge &amp; vintage candy also available in the shop</span></div>
+          <div class="ff-item"><span class="ff-dot"></span><span>Photo op wall inside — perfect for family visits &amp; date nights</span></div>
+          <div class="ff-item"><span class="ff-dot"></span><span>Wide aisles throughout for easy wheelchair access</span></div>
         </div>
-        <a href="tel:9047765152" class="btn btn-fill" style="margin-top:1.5rem">📞 Call Us: (904) 776-5152</a>
+        <a href="tel:9047765152" class="btn btn-fill" style="margin-top:1.5rem">Call Us: (904) 776-5152</a>
       </div>
       <div>
         <span style="font-size:7rem;display:block;text-align:center;margin-bottom:1.5rem;animation:bob 5s ease-in-out infinite">🍦</span>
@@ -589,8 +717,8 @@ footer a:hover{color:var(--gold)}
             Hours of Operation
             <span class="open-pill" id="openPill">Checking…</span>
           </div>
-          <div class="hrow"><span class="hday">Sunday – Thursday</span><span class="htime">1 PM – 9 PM</span></div>
-          <div class="hrow"><span class="hday">Friday – Saturday</span><span class="htime">1 PM – 10 PM</span></div>
+          <div class="hrow"><span class="hday">Sunday – Thursday</span><span class="htime">1:00 PM – 9:00 PM</span></div>
+          <div class="hrow"><span class="hday">Friday – Saturday</span><span class="htime">1:00 PM – 10:00 PM</span></div>
         </div>
         <div class="map-embed">
           <iframe loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
@@ -602,31 +730,31 @@ footer a:hover{color:var(--gold)}
   </div>
 </div>
 
-<!-- VISIT PANEL -->
+<!-- ══════════════════ VISIT PANEL ══════════════════ -->
 <div class="panel" id="panel-visit">
   <div class="panel-w">
     <div class="eyebrow">Come See Us</div>
     <h2 class="sh">Find us in <i>Argyle Forest</i></h2>
-    <p class="st" style="margin-bottom:2.5rem">Easy to find, even easier to love. Dine-in and takeout available.</p>
+    <p class="st" style="margin-bottom:2.5rem">Easy to find, even easier to love. Dine-in and takeout available every night.</p>
     <div class="visit-grid">
       <div>
         <div class="visit-info">
           <div class="vi-item"><span class="vi-icon">📍</span><div><span class="vi-lbl">Address</span><span class="vi-val">6625 Argyle Forest Blvd, Unit 8<br>Jacksonville, FL 32244</span></div></div>
           <div class="vi-item"><span class="vi-icon">📞</span><div><span class="vi-lbl">Phone</span><span class="vi-val"><a href="tel:9047765152">(904) 776-5152</a></span></div></div>
-          <div class="vi-item"><span class="vi-icon">📧</span><div><span class="vi-lbl">Email</span><span class="vi-val"><a href="mailto:tastycreameryjax@gmail.com">tastycreameryjax@gmail.com</a></span></div></div>
+          <div class="vi-item"><span class="vi-icon">✉</span><div><span class="vi-lbl">Email</span><span class="vi-val"><a href="mailto:tastycreameryjax@gmail.com">tastycreameryjax@gmail.com</a></span></div></div>
           <div class="vi-item"><span class="vi-icon">🌐</span><div><span class="vi-lbl">Website</span><span class="vi-val"><a href="https://tastycreamery.net" target="_blank">tastycreamery.net</a></span></div></div>
-          <div class="vi-item"><span class="vi-icon">🕐</span><div><span class="vi-lbl">Hours</span><span class="vi-val">Sun–Thu 1–9 PM · Fri–Sat 1–10 PM</span></div></div>
+          <div class="vi-item"><span class="vi-icon">🕐</span><div><span class="vi-lbl">Hours</span><span class="vi-val">Sun–Thu 1–9 PM &nbsp;·&nbsp; Fri–Sat 1–10 PM</span></div></div>
           <div class="vi-item"><span class="vi-icon">🚗</span><div><span class="vi-lbl">Service Options</span><span class="vi-val">Dine-in · Takeout</span></div></div>
         </div>
         <div class="cta-box">
           <h3>Ready for a scoop?</h3>
-          <p>Come on in — we'd love to see you. Call ahead or order online anytime.</p>
+          <p>Come on in — we'd love to see you. Call ahead or visit us online anytime.</p>
           <div class="cta-btns">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=6625+Argyle+Forest+Blvd+Unit+8+Jacksonville+FL+32244" target="_blank" class="btn-cta-w">📍 Get Directions</a>
-            <a href="tel:9047765152" class="btn-cta-g">📞 Call (904) 776-5152</a>
-            <a href="https://tastycreamery.net" target="_blank" class="btn-cta-g">🌐 Order Online</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=6625+Argyle+Forest+Blvd+Unit+8+Jacksonville+FL+32244" target="_blank" class="btn-cta-w">Get Directions</a>
+            <a href="tel:9047765152" class="btn-cta-g">Call (904) 776-5152</a>
+            <a href="https://tastycreamery.net" target="_blank" class="btn-cta-g">Order Online</a>
           </div>
-          <div class="late-note">🌙 Open until <strong>10 PM Fri & Sat</strong>, 9 PM every other day — no craving goes unmet.</div>
+          <div class="late-note">Open until <strong style="color:#fff">10 PM Fri &amp; Sat</strong>, 9 PM every other night — no craving goes unmet.</div>
         </div>
       </div>
       <div class="visit-map">
@@ -638,48 +766,54 @@ footer a:hover{color:var(--gold)}
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div style="margin-bottom:.5rem">
     <a href="tel:9047765152">(904) 776-5152</a> &nbsp;·&nbsp;
     <a href="mailto:tastycreameryjax@gmail.com">tastycreameryjax@gmail.com</a> &nbsp;·&nbsp;
-    <a href="https://tastycreamery.net" target="_blank">tastycreamery.netlify.app</a>
+    <a href="https://tastycreamery.net" target="_blank">tastycreamery.net</a>
   </div>
   <div style="margin-bottom:.5rem">6625 Argyle Forest Blvd, Unit 8, Jacksonville, FL 32244</div>
-  <div>© 2026 Tasty Creamery · Veteran &amp; Women-Owned · LGBTQ+ Friendly · Hershey's Ice Cream</div>
+  <div>&copy; 2026 Tasty Creamery &nbsp;·&nbsp; Veteran &amp; Women-Owned &nbsp;·&nbsp; LGBTQ+ Friendly &nbsp;·&nbsp; Hershey's Ice Cream</div>
 </footer>
 
 <!-- CHATBOT -->
-<button class="chat-fab" id="chatFab" aria-label="Open chat">🍦</button>
+<button class="chat-fab" id="chatFab" aria-label="Open chat">💬</button>
 <div class="chat-window" id="chatWin">
   <div class="chat-head">
     <div class="chat-dot"></div>
-    <div><div class="chat-name">Tasty Creamery</div><div class="chat-sub">We usually reply right away 🍦</div></div>
+    <div><div class="chat-name">Tasty Creamery</div><div class="chat-sub">Usually replies right away</div></div>
     <button class="chat-close" id="chatClose">✕</button>
   </div>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="msg bot">Hey there! 👋 Welcome to Tasty Creamery! Tap a button below to get answers fast.</div>
+    <div class="msg bot">Hey there! Welcome to Tasty Creamery. Tap a topic below for a quick answer.</div>
   </div>
   <div class="chat-quick" id="chatQuick">
-    <button class="cq-btn" onclick="quickAsk('hours')">🕐 Hours</button>
-    <button class="cq-btn" onclick="quickAsk('location')">📍 Location</button>
-    <button class="cq-btn" onclick="quickAsk('flavors')">🍦 Flavors</button>
-    <button class="cq-btn" onclick="quickAsk('delivery')">🚗 Delivery</button>
-    <button class="cq-btn" onclick="quickAsk('best sellers')">⭐ Best Sellers</button>
-    <button class="cq-btn" onclick="quickAsk('pricing')">💰 Pricing</button>
-    <button class="cq-btn" onclick="quickAsk('cookies')">🍪 Cookies</button>
-    <button class="cq-btn" onclick="quickAsk('stuffed shakes')">🥤 Shakes</button>
-    <button class="cq-btn" onclick="quickAsk('dietary')">🌿 Dietary Options</button>
-    <button class="cq-btn" onclick="quickAsk('parking')">🅿️ Parking</button>
-    <button class="cq-btn" onclick="quickAsk('pints')">🥡 Pints To Go</button>
-    <button class="cq-btn" onclick="quickAsk('boozy')">🍹 Boozy Shakes</button>
-    <button class="cq-btn" onclick="quickAsk('about us')">🏡 About Us</button>
-    <button class="cq-btn" onclick="quickAsk('social media')">📸 Social</button>
+    <button class="cq-btn" onclick="quickAsk('hours')">Hours</button>
+    <button class="cq-btn" onclick="quickAsk('location')">Location</button>
+    <button class="cq-btn" onclick="quickAsk('flavors')">Flavors</button>
+    <button class="cq-btn" onclick="quickAsk('ordering')">Ordering</button>
+    <button class="cq-btn" onclick="quickAsk('best sellers')">Best Sellers</button>
+    <button class="cq-btn" onclick="quickAsk('menu items')">Menu Items</button>
+    <button class="cq-btn" onclick="quickAsk('cookies')">Cookies</button>
+    <button class="cq-btn" onclick="quickAsk('stuffed shakes')">Stuffed Shakes</button>
+    <button class="cq-btn" onclick="quickAsk('dietary')">Dietary Options</button>
+    <button class="cq-btn" onclick="quickAsk('parking')">Parking</button>
+    <button class="cq-btn" onclick="quickAsk('pints')">Pints To Go</button>
+    <button class="cq-btn" onclick="quickAsk('boozy')">Boozy Shakes</button>
+    <button class="cq-btn" onclick="quickAsk('about us')">About Us</button>
+    <button class="cq-btn" onclick="quickAsk('social')">Follow Us</button>
   </div>
 </div>
 
 <script>
+// MOBILE MENU
+function toggleMob(){document.getElementById('navHam').classList.toggle('open');document.getElementById('mobMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('navHam').classList.remove('open');document.getElementById('mobMenu').classList.remove('open')}
+
 // PANEL SWITCHING
 function showPanel(id){
+  closeMob();
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
@@ -687,37 +821,45 @@ function showPanel(id){
   if(p){p.classList.add('on');triggerFades(p)}
   const t=document.getElementById('tab-'+id);if(t)t.classList.add('on');
   const nl=document.getElementById('nl-'+id);if(nl)nl.classList.add('active');
-if (id !== 'home') {const panel = document.getElementById('panel-' + id);panel.scrollIntoView({behavior: 'smooth',block: 'start'});}
-  else window.scrollTo({top:0,behavior:'smooth'});
+if (id !== 'home') {
+  const p = document.getElementById('panel-' + id);
+
+  window.scrollTo({
+    top: p.offsetTop - 80,
+    behavior: 'smooth'
+  });
+}  else window.scrollTo({top:0,behavior:'smooth'});
 }
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
-function triggerFades(scope){scope.querySelectorAll('.fade').forEach(el=>obs.observe(el))}
-document.querySelectorAll('.panel.on .fade').forEach(el=>obs.observe(el));
+
+// FADE IN
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+function triggerFades(scope){scope.querySelectorAll('.fade').forEach((el,i)=>{el.style.transitionDelay=(i*.03)+'s';obs.observe(el)})}
+document.querySelectorAll('.panel.on .fade').forEach((el,i)=>{el.style.transitionDelay=(i*.03)+'s';obs.observe(el)});
+
+// MENU FILTER
 function filterMenu(cat,btn){
   document.querySelectorAll('.mcat-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   document.querySelectorAll('.mcard').forEach(c=>{
-    if(cat==='all'||c.dataset.cat===cat)c.classList.remove('hidden');
-    else c.classList.add('hidden');
+    c.classList.toggle('hidden',cat!=='all'&&c.dataset.cat!==cat);
   });
 }
 
 // LIVE HOURS
 (function(){
   const el=document.getElementById('openPill');
-  const now=new Date();
-  const day=now.getDay(),h=now.getHours()+now.getMinutes()/60;
+  const now=new Date(),day=now.getDay(),h=now.getHours()+now.getMinutes()/60;
   const close=(day===5||day===6)?22:21;
   if(h>=13&&h<close){
-    el.textContent='● Open Now';
+    el.textContent='Open Now';
     el.style.cssText='background:#D4EDDA;color:#155724;border-radius:50px;font-size:.72rem;padding:.22rem .65rem;font-weight:600';
   }else{
-    el.textContent='○ Closed';
+    el.textContent='Closed';
     el.style.cssText='background:#F8D7DA;color:#721C24;border-radius:50px;font-size:.72rem;padding:.22rem .65rem;font-weight:600';
   }
 })();
 
-// TABS FADE IN AFTER HERO
+// TABS VISIBLE AFTER HERO
 const tabsEl=document.getElementById('page-tabs');
 tabsEl.style.opacity='0';tabsEl.style.pointerEvents='none';tabsEl.style.transition='opacity .3s';
 window.addEventListener('scroll',()=>{
@@ -727,53 +869,44 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 // LIGHTBOX
-const lbImgs=['imgs/1.jpg','imgs/2.jpg','imgs/3.jpg','imgs/4.jpg','imgs/5.jpg','imgs/6.jpg','imgs/7.jpg','imgs/8.jpg','imgs/9.jpg','imgs/10.jpg','imgs/11.jpg','imgs/12.jpg','imgs/13.jpg','imgs/14.jpg','imgs/15.jpg','imgs/16.jpg','imgs/17.jpg','imgs/18.jpg','imgs/19.jpg','imgs/20.jpg','imgs/21.jpg','imgs/22.jpg','imgs/23.jpg','imgs/24.jpg','imgs/25.png'];
+const LB=['imgs/1.jpg','imgs/2.jpg','imgs/3.jpg','imgs/4.jpg','imgs/5.jpg','imgs/6.jpg','imgs/7.jpg','imgs/8.jpg','imgs/9.jpg','imgs/10.jpg','imgs/11.jpg','imgs/12.jpg','imgs/13.jpg','imgs/14.jpg','imgs/15.jpg','imgs/16.jpg','imgs/17.jpg','imgs/18.jpg','imgs/19.jpg','imgs/20.jpg','imgs/21.jpg','imgs/22.jpg','imgs/23.jpg','imgs/24.jpg','imgs/25.png'];
 let lbIdx=0;
-const lb=document.getElementById('lightbox');
-const lbImg=document.getElementById('lb-img');
-const lbCounter=document.getElementById('lb-counter');
-function openLB(i){lbIdx=i;lbImg.src=lbImgs[i];lbCounter.textContent=(i+1)+' / '+lbImgs.length;lb.style.display='flex';document.body.style.overflow='hidden'}
-function closeLB(){lb.style.display='none';document.body.style.overflow=''}
-function lbNav(dir){lbIdx=(lbIdx+dir+lbImgs.length)%lbImgs.length;lbImg.src=lbImgs[lbIdx];lbCounter.textContent=(lbIdx+1)+' / '+lbImgs.length}
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img'),lbCnt=document.getElementById('lb-counter');
+function openLB(i){lbIdx=i;lbImg.src=LB[i];lbCnt.textContent=(i+1)+' / '+LB.length;lb.classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow=''}
+function lbNav(d){lbIdx=(lbIdx+d+LB.length)%LB.length;lbImg.src=LB[lbIdx];lbCnt.textContent=(lbIdx+1)+' / '+LB.length}
 lb.addEventListener('click',e=>{if(e.target===lb)closeLB()});
-document.addEventListener('keydown',e=>{if(lb.style.display==='flex'){if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')closeLB()}});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')closeLB()});
 
-const fab=document.getElementById('chatFab');
-const win=document.getElementById('chatWin');
-const msgs=document.getElementById('chatMsgs');
+// CHATBOT
+const fab=document.getElementById('chatFab'),win=document.getElementById('chatWin'),msgs=document.getElementById('chatMsgs');
 fab.addEventListener('click',()=>win.classList.toggle('open'));
 document.getElementById('chatClose').addEventListener('click',()=>win.classList.remove('open'));
 
 const ANSWERS={
-  'hours':        'We\'re open every day! 🕐\n\nSun – Thu: 1 PM – 9 PM\nFri – Sat: 1 PM – 10 PM',
-  'location':     'We\'re at 6625 Argyle Forest Blvd, Unit 8, Jacksonville, FL 32244 — in the Argyle Forest / West Jacksonville area. Free parking right out front! 📍',
-  'flavors':      'We serve Hershey\'s ice cream with 56 rotating flavors! 🍦\n\nFan favorites include:\n• Banana Pudding\n• Salted Caramel Truffle\n• Dark Chocolate Raspberry\n• Cookies & Cream\n• Key Lime Pie\n• Coffeehouse Cookies & Cream\n\nTap the Flavors tab to see the full list!',
-  'delivery':     'Yes! We offer dine-in, takeout 🚗\n\nOrder online at tastycreamery.net or call us at (904) 776-5152.',
-  'best sellers': 'Our most-loved items are: ⭐\n\n🥤 Stuffed Shakes\n🍦 Banana Pudding ice cream\n🍪 Fresh-baked cookies\n🍫 Hot fudge sundaes\n🍌 Banana splits\n\nHonestly, you can\'t go wrong with anything!',
-  'pricing':      'Very affordable! 💰\n\n🍦 Scoops: from $4\n🍪 Cookies: from $3\n🍫 Sundaes: from $6\n🥤 Stuffed Shakes: from $8\n🍌 Banana Split: from $7\n\nTax is included in our prices!',
-  'cookies':      'Our fresh-baked cookies are legendary 🍪\n\nBaked fresh daily in multiple flavors — warm, gooey, and "insaaaane!!" according to our customers. Starting at $3. You can also order 2 or 3 with different flavors!',
-  'stuffed shakes':'Our stuffed shakes are our signature item 🥤\n\nLoaded with toppings, candy, and house-made treats. Choose from 48 ice cream flavors. Starting at $8 — they\'re a total showstopper!',
-  'dietary':      'We have options for everyone! 🌿\n\nMany of our 56 Hershey\'s flavors are:\n• Vegan / Dairy-free\n• Gluten-free\n• Lactose-free\n• No sugar added\n\nJust ask our team and we\'ll find the perfect flavor for you!',
-  'parking':      'Free parking right in front of the shop at the Argyle Forest Blvd shopping center — super easy in and out! 🅿️',
-  'pints':        'Yes! We sell full 16 oz pints to go 🥡\n\nChoose any of our 56 Hershey\'s flavors, including gluten-free, vegan, and dairy-free options. Perfect for taking your favorite flavor home!',
-  'boozy':        'For guests 21+ we have boozy shakes! 🍹\n\nAsk our team about today\'s boozy shake options — a grown-up twist on our famous shakes. Must be 21+ with valid ID.',
-  'about us':     'We\'re a charming, veteran-owned & women-owned Hershey\'s ice cream parlor 🇺🇸👩\n\nWe\'re LGBTQ+ friendly, wheelchair accessible, and we craft unforgettable moments in an old-time parlor atmosphere. Come as you are — everyone is welcome!',
-  'social media': 'Follow us on Facebook for the latest photos, specials & updates! 📸\n\nfacebook.com/tastycreameryjax\nEmail: tastycreameryjax@gmail.com',
+  hours:        'We are open every day:\n\nSun – Thu: 1:00 PM – 9:00 PM\nFri – Sat: 1:00 PM – 10:00 PM',
+  location:     '6625 Argyle Forest Blvd, Unit 8\nJacksonville, FL 32244\n\nIn Argyle Forest / West Jacksonville. Free parking right out front.',
+  flavors:      'We serve Hershey\'s hand-dipped ice cream with 50+ flavors.\n\nSome favorites:\n· Banana Pudding\n· Salty Caramel Truffle\n· Dark Chocolate Raspberry Truffle\n· Blueberry Cheesecake\n· Coffeehouse Cookies & Cream\n· Deep Dish Apple Pie\n· Superman\n\nPlus Italian Ice in 4 flavors. Tap the Flavors tab to see the full list!',
+  ordering:     'We offer dine-in and takeout.\n\nOrder online at tastycreamery.net or call us at (904) 776-5152.',
+  'best sellers':'Our most-loved items:\n\n· Stuffed Shakes\n· Banana Pudding ice cream\n· Fresh-baked cookies\n· Sundaes\n· Banana Splitz\n\nYou really can\'t go wrong!',
+  'menu items': 'Our full menu includes:\n\n· Scoops (single/double)\n· Sundaes & Sky High Sundaes\n· Banana Splitz\n· Milkshakes & Stuffed Shakes\n· Boozy Milkshakes (21+)\n· Floats & Affogato\n· Blend Java (espresso shake)\n· Decadent Cookies A\'La Mode\n· Brownies A\'La Mode\n· Homemade Cobbler A\'La Mode\n· Take Home Pints\n\nTap the Menu tab to explore!',
+  cookies:      'Our decadent cookies are baked fresh daily. Enjoy plain or A\'La Mode — choose your cookie, your ice cream, and your drizzle. Customers call them "insaaaane!!"',
+  'stuffed shakes':'Our signature item — choose your ice cream flavor and your add-ins, loaded with toppings, candy, and house-made treats, topped with whipped cream and a cherry.',
+  dietary:      'We have options for everyone!\n\nMany Hershey\'s flavors come in:\n· Vegan / Dairy-free\n· Gluten-free\n· Lactose-free (Lactaid Free Vanilla)\n· No sugar added (Butter Pecan NSA)\n· Fat free (Fat Free Vanilla Yogurt)\n\nJust ask our team and we\'ll find the right match.',
+  parking:      'Free parking right in front of the shop at the Argyle Forest Blvd shopping center — very easy to find.',
+  pints:        'Yes! We pack full pints to go from any of our Hershey\'s flavors, including vegan and dairy-free options. Ask our team for pricing.',
+  boozy:        'For guests 21+ we have boozy milkshakes — choose your ice cream and your alcohol, served with drizzle and whipped cream. Valid ID required.',
+  'about us':   'We\'re a veteran-owned, women-owned Hershey\'s ice cream parlor in Argyle Forest, Jacksonville.\n\nLGBTQ+ friendly and wheelchair accessible. Everyone is welcome — come as you are.',
+  social:       'Follow us on Facebook:\nfacebook.com/tastycreameryjax\n\nEmail: tastycreameryjax@gmail.com',
 };
-const LABELS={
-  'hours':'🕐 Hours','location':'📍 Location','flavors':'🍦 Flavors','delivery':'🚗 Delivery',
-  'best sellers':'⭐ Best Sellers','pricing':'💰 Pricing','cookies':'🍪 Cookies',
-  'stuffed shakes':'🥤 Shakes','dietary':'🌿 Dietary Options','parking':'🅿️ Parking',
-  'pints':'🥡 Pints To Go','boozy':'🍹 Boozy Shakes','about us':'🏡 About Us','social media':'📸 Social',
-};
+const LABELS={hours:'Hours',location:'Location',flavors:'Flavors',ordering:'Ordering','best sellers':'Best Sellers','menu items':'Menu Items',cookies:'Cookies','stuffed shakes':'Stuffed Shakes',dietary:'Dietary Options',parking:'Parking',pints:'Pints To Go',boozy:'Boozy Shakes','about us':'About Us',social:'Follow Us'};
+
 function addMsg(text,who){
-  const d=document.createElement('div');
-  d.className='msg '+who;d.textContent=text;
+  const d=document.createElement('div');d.className='msg '+who;d.textContent=text;
   msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
 }
 function showButtons(){
-  const qw=document.getElementById('chatQuick');
-  qw.style.display='flex';
+  document.getElementById('chatQuick').style.display='flex';
   msgs.scrollTop=msgs.scrollHeight;
 }
 function quickAsk(key){
