@@ -86,8 +86,8 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(254,250,244,0.96
 .tab-btn.on{color:var(--brown);border-bottom-color:var(--pink);font-weight:600}
 
 /* PANELS */
-.panel{display:none;padding:4rem 1.5rem}
-.panel.on{display:block}
+.panel {transition:max-height 0.4s ease-out, opacity 0.4s ease-out;max-height:0;opacity:0;padding:4rem 1.5rem;overflow:hidden;}
+.panel.on {max-height: 1000px;opacity: 1;}
 .panel-w{max-width:1120px;margin:0 auto}
 .eyebrow{font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:.6rem;display:flex;align-items:center;gap:8px}
 .eyebrow::before{content:'';width:20px;height:2px;background:var(--pink)}
